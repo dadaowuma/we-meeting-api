@@ -1,0 +1,24 @@
+{
+  "name": "we-meeting-api",
+  "version": "1.0.0",
+  "description": "WeMetting api",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src/app-client/index.js",
+    "test": "jasmine",
+    "doc-api": "docsify serve ./docs/api -p 3001",
+    "doc-dev": "docsify serve ./docs/dev -p 3002"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@koa/router": "13.1.0",
+    "koa": "2.15.3",
+    "log4js": "6.9.1"
+  },
+  "devDependencies": {
+    "docsify-cli": "4.4.4",
+    "jasmine": "5.4.0"
+  }
+}
