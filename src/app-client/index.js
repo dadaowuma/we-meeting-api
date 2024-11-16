@@ -1,4 +1,5 @@
-const {port} = require('./config');
+const {port, allowOrigin, websocket_on} = require('./config');
+const logger = require('../3rdlibs/log4js');
 
 const router = require('./routes');
 
@@ -8,7 +9,7 @@ const middle_wares = [
   async (ctx, next) => {
     await next();
     const rt = ctx.response.get('X-Response-Time');
-    console.log(`${ctx.method} ${ctx.url} - ${rt}`);
+    logger.info(`${ctx.method} ${ctx.url} - ${rt}`);
   },
   async (ctx, next) => {
     const start = Date.now();
@@ -29,6 +30,8 @@ const middle_wares = [
  */
 const {start} = createApp({
   port: port,
+  websocket_on: websocket_on,
+  allowOrigin: allowOrigin
 }, middle_wares);
 
 /**

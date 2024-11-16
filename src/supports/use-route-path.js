@@ -74,6 +74,7 @@ module.exports = function useRoutePath(prefix, routes_list = []){
 
     const _path = usePrefix(prefix, path);
 
+    logger.info(`挂载接口路由 method:${method} path:${_path}`);
     router[method](_path, useApi(action))
   }
 
