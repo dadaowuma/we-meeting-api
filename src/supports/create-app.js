@@ -6,9 +6,16 @@ const websockify = require('../3rdlibs/koa-websocket');
 
 const logger = require('../3rdlibs/log4js');
 
+const KSR = require('../3rdlibs/koa-static-resolver');
+
 /**
  * 创建一个APP
  * @param {object} config 
+ * @param {number} config.port - 服务器端口
+ * @param {boolean} config.websocket_on - 是否开启websocket服务器
+ * @param {string|string[]} config.allowOrigin - 被允许访问的origin
+ * @param {string[]} config.static_path - 静态文件服务器地址
+ * @param {string} config.static_prefix - 静态文件路径前缀
  * @param {function[]} middle_wares 
  */
 module.exports = function createApp(config, middle_wares){
@@ -24,6 +31,20 @@ module.exports = function createApp(config, middle_wares){
 
     app = new Koa();
   }
+
+  /**
+   * 配置静态服务器
+   */
+  app.use(KSR({
+    dirs: config.static_path,
+    prefix: config.static_prefix,
+    //server cache (Memory)
+    cache: {},
+    //do NOT cache big size file
+    cacheMaxLength: 10 * 1024 * 1024,
+    //browser cache header: max-age=<seconds>
+    maxAge: 600
+  }));
   
   /**
    * 配置跨域

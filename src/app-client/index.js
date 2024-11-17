@@ -1,4 +1,4 @@
-const {port, allowOrigin, websocket_on} = require('./config');
+const {port, allowOrigin, websocket_on, static_path, static_prefix} = require('./config');
 const logger = require('../3rdlibs/log4js');
 
 const router = require('./routes');
@@ -31,7 +31,9 @@ const middle_wares = [
 const {start} = createApp({
   port: port,
   websocket_on: websocket_on,
-  allowOrigin: allowOrigin
+  allowOrigin: allowOrigin,
+  static_path: static_path,
+  static_prefix: static_prefix
 }, middle_wares);
 
 /**
